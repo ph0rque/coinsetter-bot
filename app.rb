@@ -1,8 +1,9 @@
+require 'bundler/setup'
 require 'sinatra'
 require_relative 'secret_config'
 
 use Rack::Auth::Basic, "Restricted Area" do |username, password|
-  return username == SecretConfig.username && password == SecretConfig.password
+  username == SecretConfig.username && password == SecretConfig.password
 end
 
 before do

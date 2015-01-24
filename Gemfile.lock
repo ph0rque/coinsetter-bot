@@ -1,3 +1,12 @@
+GIT
+  remote: git@github.com:sinatra/sinatra.git
+  revision: 27d1716c7388db9f3c07d07c8b0c3c285d5caf42
+  specs:
+    sinatra (1.4.5)
+      rack (~> 1.4)
+      rack-protection (~> 1.4)
+      tilt (>= 1.3, < 3)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -6,20 +15,16 @@ GEM
     rack (1.6.0)
     rack-protection (1.5.3)
       rack
-    sinatra (1.4.5)
-      rack (~> 1.4)
-      rack-protection (~> 1.4)
-      tilt (~> 1.3, >= 1.3.4)
     thin (1.6.3)
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0)
       rack (~> 1.0)
-    tilt (1.4.1)
+    tilt (2.0.1)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   rack
-  sinatra
+  sinatra!
   thin
