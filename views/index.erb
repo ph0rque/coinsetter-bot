@@ -1,5 +1,4 @@
-<h1>Coinsetter Stats</h1>
-<span class='pull-right' id='timestamp'></div>
+<span class='pull-right' id='timestamp'></span>
 
 <p><strong>Price: $<span id='price'></span></strong></p>
 <p><strong>Volume: $<span id='volume'></span></strong></p>
@@ -15,7 +14,7 @@
         });
 
         socket.on('last', function (data) {
-            $('#timestamp').html($.timeago(data.timeStamp));
+            $('#timestamp').html('Updated ' + $.timeago(data.timeStamp));
             $('#price').html(data.price);
         	$('#volume').html(data.volume);
         	$('#volume24').html(data.volume24);
