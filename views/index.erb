@@ -14,7 +14,7 @@
         });
 
         socket.on('last', function (data) {
-            $('#timestamp').html('Updated ' + $.timeago(data.timeStamp));
+            $('#timestamp').html('Last trade occurred ' + $.timeago(data.timeStamp));
             $('#price').html(data.price);
             document.title = data.price;
         	$('#volume').html(data.volume);
