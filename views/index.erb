@@ -1,3 +1,24 @@
-o hai thar
+<h1>Coinsetter Stats</h1>
+<span class='pull-right' id='timestamp'></div>
 
-Last accessed at <%= @time_last_accessed %>.
+<p><strong>Price: $<span id='price'></span></strong></p>
+<p><strong>Volume: $<span id='volume'></span></strong></p>
+<p><strong>Volume last 24 hours: $<span id='volume24'></span></strong></p>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        var socket = io.connect('https://plug.coinsetter.com:3000');
+
+        socket.on('connect', function (data) {
+        	socket.emit('last room', '');
+        });
+
+        socket.on('last', function (data) {
+            $('#timestamp').html($.timeago(data.timeStamp));
+            $('#price').html(data.price);
+        	$('#volume').html(data.volume);
+        	$('#volume24').html(data.volume24);
+        });
+    });
+</script>
