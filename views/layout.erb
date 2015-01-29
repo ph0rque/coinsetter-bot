@@ -4,6 +4,7 @@
 		<title>ph0rque's coinsetter bot</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link href="/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/font-awesome-4.3/css/font-awesome.min.css" rel="stylesheet">
         <link href="/css/app.css" rel="stylesheet">
         
         <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
@@ -20,6 +21,7 @@
         <script src="https://plug.coinsetter.com:3000/socket.io/socket.io.js"></script>
         
 	</head>
+	
 	<body>
         <div id="wrapper">
             <div class="header">
@@ -27,6 +29,7 @@
         	        <div class="panel panel-<%= @msg[:status] %>">
         	            <div class="panel-heading">
         	                <span id='app-status' class='pull-right'>
+        	                    <i class='fa fa-tachometer'></i>
         	                    <%= @msg[:content] %>
         	                </span>
         	                <div class="logo">

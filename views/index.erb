@@ -1,8 +1,6 @@
-<span class='pull-right' id='timestamp'></span>
+<span class='pull-right' id='timestamp'><i class='fa fa-clock-o fa-spin'></i></span>
 
-<p><strong>Price: $<span id='price'></span></strong></p>
-<p><strong>Volume: $<span id='volume'></span></strong></p>
-<p><strong>Volume last 24 hours: $<span id='volume24'></span></strong></p>
+<p><strong><span id='price'><i class='fa fa-bitcoin fa-spin'></i></span></strong></p>
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -14,11 +12,10 @@
         });
 
         socket.on('last', function (data) {
-            $('#timestamp').html('Last trade occurred ' + $.timeago(data.timeStamp));
-            $('#price').html(data.price);
+            var now = new Date().toISOString();
+            $('#timestamp').html('Updated: ' + $.timeago(now) + ', Last trade: ' + $.timeago(data.timeStamp));
+            $('#price').html('Price: $' + data.price);
             document.title = data.price;
-        	$('#volume').html(data.volume);
-        	$('#volume24').html(data.volume24);
         });
     });
 </script>
