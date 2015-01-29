@@ -8,6 +8,7 @@ end
 
 before do
   @time_last_accessed ||= Time.now
+  @msg = { status: 'success', content: 'Ready to connect to Coinsetter' }
   # auth into coinsetter
 end
 
