@@ -1,10 +1,7 @@
 require 'bundler/setup'
 require 'sinatra'
 require 'rest-client'
-require 'erubis'
 require_relative 'secret_config'
-
-set :erb, :escape_html => true
 
 use Rack::Auth::Basic, "Restricted Area" do |username, password|
   username == SecretConfig.username && password == SecretConfig.password
@@ -21,7 +18,8 @@ get '/' do
 end
 
 get '/login_to_coinsetter' do
-  url, parameters = SecretConfig.coinsetter_url, SecretConfig.coinsetter_login_params(@ip)
+  url, parameters = SecretConfig.coinsetter_url + '/clientSession', SecretConfig.coinsetter_login_params(@ip)
+  
   RestClient.post(url, parameters) do |response, request, result, &block|
     @msg = { status: 'info', content: response}
   end

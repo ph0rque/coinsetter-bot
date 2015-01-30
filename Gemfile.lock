@@ -12,7 +12,6 @@ GEM
   specs:
     coderay (1.1.0)
     daemons (1.1.9)
-    erubis (2.7.0)
     eventmachine (1.0.4)
     method_source (0.8.2)
     mime-types (2.4.3)
@@ -38,7 +37,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  erubis
   pry
   rack
   rest-client
