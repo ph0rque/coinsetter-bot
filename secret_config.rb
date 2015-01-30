@@ -8,6 +8,10 @@ class SecretConfig
     return '^4RHj2I3$NHqc5Uy4rZPftuyJQrMQ4mI@ma&fzm'
   end
   
+  def self.quotaguard_static_url
+    'http://quotaguard2197:8016aaab1f58@us-east-1-static-brooks.quotaguard.com:9293'
+  end
+  
   def self.coinsetter_url
     'https://staging-api.coinsetter.com/v1'
   end

@@ -3,19 +3,5 @@
 <p><strong><span id='price'><i class='fa fa-bitcoin fa-spin'></i></span></strong></p>
 
 <script type="text/javascript">
-    $(document).ready(function() {
-
-        var socket = io.connect('https://plug.coinsetter.com:3000');
-
-        socket.on('connect', function (data) {
-        	socket.emit('last room', '');
-        });
-
-        socket.on('last', function (data) {
-            var now = new Date().toISOString();
-            $('#timestamp').html('Updated: ' + $.timeago(now) + ', Last trade: ' + $.timeago(data.timeStamp));
-            $('#price').html('Price: $' + data.price);
-            document.title = data.price;
-        });
-    });
+    fetch_data();
 </script>

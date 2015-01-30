@@ -9,3 +9,7 @@ body {
 #timestamp, #app-status {
     font-style: italic;
 }
+
+#app-status {
+    text-align: right;
+}

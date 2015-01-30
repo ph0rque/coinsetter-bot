@@ -18,6 +18,7 @@
 		<script src="/js/jquery-1.11.2.min.js"></script>
         <script src="/js/bootstrap.min.js"></script>
         <script src="/js/jquery.timeago.js"></script>
+        <script src="/js/app.js"></script>
         <script src="https://plug.coinsetter.com:3000/socket.io/socket.io.js"></script>
         
 	</head>
@@ -29,8 +30,11 @@
         	        <div class="panel panel-<%= @msg[:status] %>">
         	            <div class="panel-heading">
         	                <span id='app-status' class='pull-right'>
-        	                    <i class='fa fa-tachometer'></i>
-        	                    <%= @msg[:content] %>
+        	                    <button id='login-to-coinsetter' class='btn btn-default'
+        	                        onclick='login_to_coinsetter("/login_to_coinsetter")'>
+        	                        
+                                    <i id='login-icon' class='fa fa-user'></i> Login to Coinsetter
+                                </button>
         	                </span>
         	                <div class="logo">
         	                    <img src='/img/logo_small.png'>
