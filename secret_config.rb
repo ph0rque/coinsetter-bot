@@ -27,4 +27,15 @@ class SecretConfig
   def self.coinsetter_account_uuid
     '68e7468b-de54-4625-9f37-f4d4e9f907b0'
   end
+  
+  def self.coinsetter_login_params(ip_address)
+    {
+      username: self.coinsetter_username,
+      password: self.coinsetter_password,
+      ipAddress: ip_address,
+      :content_type => :json,
+      :accept => :json
+    }
+  end
+  
 end
