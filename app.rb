@@ -20,6 +20,8 @@ end
 get '/login_to_coinsetter' do
   url, parameters = SecretConfig.coinsetter_url, SecretConfig.coinsetter_login_params(@ip)
   RestClient.post(url, parameters) do |response, request, result, &block|
+puts response
+puts result
     @msg = { status: 'info', content: response }
   end
   
