@@ -1,5 +1,6 @@
 require 'bundler/setup'
 require 'sinatra'
+require 'rest-client'
 require_relative 'secret_config'
 
 use Rack::Auth::Basic, "Restricted Area" do |username, password|
@@ -24,8 +25,6 @@ def login_to_coinsetter
   
   js :login
 end
-
-protected
 
 def get_static_ip
   RestClient.proxy = ENV["QUOTAGUARDSTATIC_URL"]
