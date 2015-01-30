@@ -20,7 +20,7 @@ end
 get '/login_to_coinsetter' do
   url = SecretConfig.coinsetter_url + '/clientSession'
   parameters = SecretConfig.coinsetter_login_params(@ip)
-  headers = {:content_type => :json}
+  headers = 'Content-Type: application/json'
   
   RestClient.post(url, parameters, headers) do |response, request, result, &block|
 puts response
