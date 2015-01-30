@@ -3,6 +3,7 @@ ruby '2.1.5'
 
 gem 'thin'
 gem 'rack'
+gem 'erubis'
 gem 'sinatra', github: 'sinatra/sinatra'
 gem 'rest-client'
 

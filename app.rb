@@ -1,7 +1,10 @@
 require 'bundler/setup'
 require 'sinatra'
 require 'rest-client'
+require 'erubis'
 require_relative 'secret_config'
+
+set :erb, :escape_html => true
 
 use Rack::Auth::Basic, "Restricted Area" do |username, password|
   username == SecretConfig.username && password == SecretConfig.password
