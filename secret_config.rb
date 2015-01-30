@@ -37,7 +37,6 @@ class SecretConfig
       username: self.coinsetter_username,
       password: self.coinsetter_password,
       ipAddress: ip_address,
-      :content_type => :json,
       :accept => :json
     }
   end
