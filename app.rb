@@ -8,7 +8,8 @@ end
 
 before do
   @time_last_accessed ||= Time.now
-  @msg ||= { status: 'info', content: "Ready, IP: #{request.env['REMOTE_ADDR']}" }
+  @ip ||= get_static_ip
+  @msg ||= { status: 'info', content: "Ready, Static IP: #{@ip}" }
 end
 
 get '/' do
@@ -23,3 +24,12 @@ def login_to_coinsetter
   
   js :login
 end
+
+protected
+
+def get_static_ip
+  RestClient.proxy = ENV["QUOTAGUARDSTATIC_URL"]
+  res = RestClient.get("http://ip.jsontest.com")
+  return JSON.parse(res.body)['ip']
+end
+  
