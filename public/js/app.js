@@ -21,3 +21,11 @@ function login_to_coinsetter(url) {
     $('#login-to-coinsetter').html("<i id='login-icon' class='fa fa-spinner fa-spin'></i> Logging in ...");
     $.ajax({ url: url, dataType: 'SCRIPT', type: 'GET' });
 }
+
+function j(string) {
+    var entityMap = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': '&quot;', "'": '&#39;', "/": '&#x2F;' };
+
+    return String(string).replace(/[&<>"'\/]/g, function (s) {
+        return entityMap[s];
+    });
+}
