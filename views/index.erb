@@ -1,7 +1,31 @@
-<span class='pull-right' id='timestamp'><i class='fa fa-clock-o fa-spin'></i></span>
+<div id='main-panel' class="panel panel-<%= @msg[:status] %>">
+    <div class="panel-heading">
+        <span id='app-status' class='pull-right'>
+            <% if @logged_in %>
+                <button id='get-account-data' class='btn btn-success'
+                    onclick='get_account_data("/get_account_data")'>
+                
+                    <i id='account-icon' class='fa fa-checklist'></i> Get Account Data
+                </button>
+            <% else %>
+                <button id='login-to-coinsetter' class='btn btn-default'
+                    onclick='login_to_coinsetter("/login_to_coinsetter")'>
+            
+                    <i id='login-icon' class='fa fa-user'></i> Login to Coinsetter
+                </button>
+            <% end %>
+        </span>
+        <div class="logo">
+            <img src='/img/logo_small.png'>
+        </div>
+    </div>
+    <div id='main-panel-body' class="panel-body">
+        <span class='pull-right' id='timestamp'><i class='fa fa-clock-o fa-spin'></i></span>
 
-<p><strong><span id='price'><i class='fa fa-bitcoin fa-spin'></i></span></strong></p>
+        <p><strong><span id='price'><i class='fa fa-bitcoin fa-spin'></i></span></strong></p>
 
-<script type="text/javascript">
-    fetch_data();
-</script>
+        <script type="text/javascript">
+            fetch_data();
+        </script>
+    </div>
+</div>

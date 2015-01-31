@@ -24,28 +24,8 @@
 	</head>
 	
 	<body>
-        <div id="wrapper">
-            <div class="header">
-        	     <div class="container">
-        	        <div class="panel panel-<%= @msg[:status] %>">
-        	            <div class="panel-heading">
-        	                <span id='app-status' class='pull-right'>
-        	                    <button id='login-to-coinsetter' class='btn btn-default'
-        	                        onclick='login_to_coinsetter("/login_to_coinsetter")'>
-        	                        
-                                    <i id='login-icon' class='fa fa-user'></i> Login to Coinsetter
-                                </button>
-        	                </span>
-        	                <div class="logo">
-        	                    <img src='/img/logo_small.png'>
-        	                </div>
-                        </div>
-                        <div class="panel-body">
-                            <%= yield %>
-                        </div>
-        	        </div>
-        	     </div>
-        	</div>
-        </div>
+	     <div id="main-container" class="container">
+            <%= yield %>
+	     </div>
     </body>
 </html>

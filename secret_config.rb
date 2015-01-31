@@ -24,14 +24,6 @@ class SecretConfig
     '1bac0945-6bdf-40ee-8cf7-a8d4dac294a9'
   end
   
-  def self.coinsetter_customer_uuid
-    'b1972ba8-ec90-40a4-93eb-11b56638006e'
-  end
-  
-  def self.coinsetter_account_uuid
-    '68e7468b-de54-4625-9f37-f4d4e9f907b0'
-  end
-  
   def self.coinsetter_login_params(ip_address)
     {
       username: self.coinsetter_username,
