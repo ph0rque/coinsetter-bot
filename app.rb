@@ -57,9 +57,9 @@ def request_coinsetter_data(path, parameters)
   parameters = parameters.to_json
   headers = {content_type: :json, accept: :json}
   
-  # RestClient.post(url, parameters, headers) do |response, request, result, &block|
-  RestClient::Request.execute(:method => :post, :url => url, :payload => parameters,
-  :headers => headers, :verify_ssl => false) do |response, request, result, &block|
+  RestClient.post(url, parameters, headers) do |response, request, result, &block|
+  # RestClient::Request.execute(:method => :post, :url => url, :payload => parameters,
+  # :headers => headers, :verify_ssl => false) do |response, request, result, &block|
     
     return JSON.parse(response)
   end
