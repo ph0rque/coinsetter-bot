@@ -26,7 +26,10 @@ get '/login_to_coinsetter' do
 end
 
 get '/get_account_data' do
-  @account_data = request_coinsetter_data('/customer/account', {'coinsetter-client-session-id' => @api_session})
+  header = {'coinsetter-client-session-id' => @api_session}
+  account_data = request_coinsetter_data(:get, '/customer/account', {}, header)['accountList'][0]
+  
+  @btc_balance, @usd_balance = account_data['btcBalance'], account_data['usdBalance']
   
   erb :'get_account_data.js', :layout => false
 end
@@ -40,7 +43,7 @@ def get_static_ip
 end
 
 def login_to_coinsetter
-  response_hash = request_coinsetter_data('/clientSession', SecretConfig.coinsetter_login_params(@ip))
+  response_hash = request_coinsetter_data(:post, '/clientSession', SecretConfig.coinsetter_login_params(@ip))
   url = SecretConfig.coinsetter_url + '/clientSession'
   
   @api_session, @customer_uuid = response_hash['uuid'], response_hash['customerUuid']
@@ -52,17 +55,17 @@ def login_to_coinsetter
   return @msg[:status] == 'success'
 end
 
-def request_coinsetter_data(path, parameters)
-  url = SecretConfig.coinsetter_url + path
-  parameters = parameters.to_json
-  headers = {content_type: :json, accept: :json}
+def request_coinsetter_data(method, path, parameters = {}, headers = {})
+  api_hash = {
+    method: method,
+    url: SecretConfig.coinsetter_url + path,
+    payload: parameters.to_json,
+    headers: {content_type: :json, accept: :json}.merge(headers)
+  }
   
-  RestClient.post(url, parameters, headers) do |response, request, result, &block|
-  # RestClient::Request.execute(:method => :post, :url => url, :payload => parameters,
-  # :headers => headers, :verify_ssl => false) do |response, request, result, &block|
-    
+  # api_hash[:verify_ssl] = false # for localhost testing
+  
+  RestClient::Request.execute(api_hash) do |response, request, result, &block|
     return JSON.parse(response)
   end
-  
-  return response_hash
 end

@@ -1,1 +1,2 @@
-$('#main-panel-body').appendTo('<%= @account_data %>');
+$('#get-account-data').remove();
+$('#main-panel-body').append("<p>$<%= @usd_balance %> available</p><p>Ƀ<%= @btc_balance %> available</p>");
