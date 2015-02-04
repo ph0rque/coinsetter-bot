@@ -12,6 +12,8 @@ end
 before do
   @ip ||= get_static_ip
   @logged_in ||= login_to_coinsetter
+  
+  @customer_uuid = SecretConfig.coinsetter_customer_uuid
   @msg ||= @logged_in ? { status: 'success', content: "Logged In" } : { status: 'info', content: "" }
 end
 
@@ -19,9 +21,7 @@ get '/' do
   erb :index
 end
 
-get '/login_to_coinsetter' do
-  login_to_coinsetter
-  
+get '/login_to_coinsetter' do  
   erb :'login_to_coinsetter.js', :layout => false
 end
 
@@ -63,7 +63,7 @@ def request_coinsetter_data(method, path, parameters = {}, headers = {})
     headers: {content_type: :json, accept: :json}.merge(headers)
   }
   
-  # api_hash[:verify_ssl] = false # for localhost testing
+  api_hash[:verify_ssl] = false # for localhost testing
   
   RestClient::Request.execute(api_hash) do |response, request, result, &block|
     return JSON.parse(response)

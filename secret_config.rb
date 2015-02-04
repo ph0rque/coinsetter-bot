@@ -13,15 +13,19 @@ class SecretConfig
   end
   
   def self.coinsetter_url
-    'https://staging-api.coinsetter.com/v1'
+    'https://api.coinsetter.com/v1'
   end
   
   def self.coinsetter_username
-    'h8ruqh6cbp68s5je4nrt9gvdnktu06n'
+    'ph00rque'
   end
   
   def self.coinsetter_password
-    '1bac0945-6bdf-40ee-8cf7-a8d4dac294a9'
+    '4d42raw$MXgSvk83VABnG^x*'
+  end
+  
+  def self.coinsetter_customer_uuid
+    '8d1e8d3f-a45e-421d-9d71-7c93277c797d'
   end
   
   def self.coinsetter_login_params(ip_address)

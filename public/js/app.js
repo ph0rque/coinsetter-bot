@@ -1,10 +1,11 @@
-function fetch_data() {
+function fetch_data(customer_uuid) {
     $(document).ready(function() {
 
         var socket = io.connect('https://plug.coinsetter.com:3000');
 
         socket.on('connect', function (data) {
-        	socket.emit('last room', '');
+            socket.emit('last room', '');
+        	socket.emit('orders room', customer_uuid);
         });
 
         socket.on('last', function (data) {
@@ -13,7 +14,19 @@ function fetch_data() {
             $('#price').html('Price: $' + data.price);
             document.title = data.price;
         });
+        
+        socket.on('orders-' + customer_uuid, function (data){
+        	console.log(data.filledQuantity);
+        	console.log(data.orderType);
+        	console.log(data.stage);
+        	console.log(data.requestedQuantity);
+        	console.log(data.requestedPrice);
+        	console.log(data.side);
+        	console.log(data.symbol);
+        	console.log(data.exchId);
+        });
     });
+
 }
 
 function login_to_coinsetter(url) {
