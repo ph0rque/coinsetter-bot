@@ -63,7 +63,7 @@ def request_coinsetter_data(method, path, parameters = {}, headers = {})
     headers: {content_type: :json, accept: :json}.merge(headers)
   }
   
-  api_hash[:verify_ssl] = false # for localhost testing
+  # api_hash[:verify_ssl] = false # for localhost testing
   
   RestClient::Request.execute(api_hash) do |response, request, result, &block|
     return JSON.parse(response)
