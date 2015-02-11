@@ -43,7 +43,7 @@ get '/buy/:amount/for/:price' do
   if response['requestStatus'] == 'SUCCESS'
     @message = { status: 'success', msg: "Bought #{params[:amount]} for #{params[:price]}." }
   else
-    @message = { status: 'warning', msg: "Something went wrong." }
+    @message = { status: 'danger', msg: response['message'] }
   end
   
   erb :'order_result.js', :layout => false
@@ -58,7 +58,7 @@ get '/sell/:amount/for/:price' do
   if response['requestStatus'] == 'SUCCESS'
     @message = { status: 'success', msg: "Sold #{params[:amount]} for #{params[:price]}." }
   else
-    @message = { status: 'warning', msg: response['message'] }
+    @message = { status: 'danger', msg: response['message'] }
   end
   
   erb :'order_result.js', :layout => false

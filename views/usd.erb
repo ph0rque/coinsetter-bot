@@ -1,4 +1,4 @@
-<% button_class = @usd_balance > 1 ? 'btn btn-xs btn-success' : 'btn btn-xs btn-success disabled' %>
+<% button_class = @usd_balance > 1 ? 'btn btn-xs btn-success' : 'btn btn-xs btn-default disabled' %>
 <p>
     <button id='buy-btc' class='<%= button_class %>' onclick='buy(<%= @usd_balance %>)'>
         Buy All

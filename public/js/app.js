@@ -33,15 +33,15 @@ function fetch_data(customer_uuid) {
             $('#usd-amount').text(Math.round(100*usd)/100);
             
             if(btc < 0.01) {
-                $('#sell-btc').addClass('disabled');
+                $('#sell-btc').removeClass('btn-danger').addClass('btn-default disabled');
             } else {
-                $('#sell-btc').removeClass('disabled');
+                $('#sell-btc').removeClass('btn-default disabled').addClass('btn-danger');
             }
             
             if(usd < 1) {
-                $('#buy-btc').addClass('disabled');
+                $('#buy-btc').removeClass('btn-success').addClass('btn-default disabled');
             } else {
-                $('#buy-btc').removeClass('disabled');
+                $('#buy-btc').removeClass('btn-default disabled').addClass('btn-danger');
             }
             
             $('#app-status').append("<span id='order-confirmation' class='alert alert-success'>Order Confirmed</span>");
@@ -64,15 +64,16 @@ function get_account_data(url) {
 }
 
 function buy(amount)  {
-    var actualBuy = Math.floor(100*amount/1.0025)/100;
-    url = '/buy/' + actualBuy + '/for/' + $('#price-value').text();
+    var btcAmount = parseFloat(amount/$('#price-value').text()),
+        actualBuy = Math.floor(100*(btcAmount)/1.0025)/100,
+        url = '/buy/' + actualBuy + '/for/' + $('#price-value').text();
     
     $.ajax({ url: url, dataType: 'SCRIPT', type: 'GET' });
 }
 
 function sell(amount)  {
-    var actualSell = Math.floor(100*amount/1.0025)/100;
-    url = '/sell/' + actualSell + '/for/' + $('#price-value').text();
+    var actualSell = Math.floor(100*amount/1.0025)/100,
+        url = '/sell/' + actualSell + '/for/' + $('#price-value').text();
     
     $.ajax({ url: url, dataType: 'SCRIPT', type: 'GET' });
 }
