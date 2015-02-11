@@ -14,7 +14,7 @@ before do
   @logged_in ||= login_to_coinsetter
   
   @customer_uuid = SecretConfig.coinsetter_customer_uuid
-  @msg ||= @logged_in ? { status: 'success', content: "Logged In" } : { status: 'info', content: "" }
+  @msg ||= @logged_in ? { status: 'info', content: "Logged In" } : { status: 'info', content: "" }
 end
 
 get '/' do
@@ -27,11 +27,41 @@ end
 
 get '/get_account_data' do
   header = {'coinsetter-client-session-id' => @api_session}
-  account_data = request_coinsetter_data(:get, '/customer/account', {}, header)['accountList'][0]
+  account_data = coinsetter_request(:get, '/customer/account', {}, header)['accountList'][0]
   
   @btc_balance, @usd_balance = account_data['btcBalance'], account_data['usdBalance']
   
   erb :'get_account_data.js', :layout => false
+end
+
+get '/buy/:amount/for/:price' do
+  header = {'coinsetter-client-session-id' => @api_session}
+  parameters = params_for_order('buy', params[:amount], params[:price])
+  
+  response = coinsetter_request(:post, '/order', parameters, header)
+  
+  if response['requestStatus'] == 'SUCCESS'
+    @message = "Bought #{params[:amount]} for #{params[:price]}."
+  else
+    @message = "Something went wrong."
+  end
+  
+  erb :'order_result.js', :layout => false
+end
+
+get '/sell/:amount/for/:price' do
+  header = {'coinsetter-client-session-id' => @api_session}
+  parameters = params_for_order('sell', params[:amount], params[:price])
+  
+  response = coinsetter_request(:post, '/order', parameters, header)
+  
+  if response['requestStatus'] == 'SUCCESS'
+    @message = "Sold #{params[:amount]} for #{params[:price]}."
+  else
+    @message = "Something went wrong."
+  end
+  
+  erb :'order_result.js', :layout => false
 end
 
 # internal methods
@@ -43,7 +73,7 @@ def get_static_ip
 end
 
 def login_to_coinsetter
-  response_hash = request_coinsetter_data(:post, '/clientSession', SecretConfig.coinsetter_login_params(@ip))
+  response_hash = coinsetter_request(:post, '/clientSession', SecretConfig.coinsetter_login_params(@ip))
   url = SecretConfig.coinsetter_url + '/clientSession'
   
   @api_session, @customer_uuid = response_hash['uuid'], response_hash['customerUuid']
@@ -55,7 +85,7 @@ def login_to_coinsetter
   return @msg[:status] == 'success'
 end
 
-def request_coinsetter_data(method, path, parameters = {}, headers = {})
+def coinsetter_request(method, path, parameters = {}, headers = {})
   api_hash = {
     method: method,
     url: SecretConfig.coinsetter_url + path,
@@ -67,5 +97,42 @@ def request_coinsetter_data(method, path, parameters = {}, headers = {})
   
   RestClient::Request.execute(api_hash) do |response, request, result, &block|
     return JSON.parse(response)
+  end
+end
+
+def params_for_order(order_type, amount, price)
+  return {
+    accountUuid: SecretConfig.coinsetter_account_uuid,
+    customerUuid: SecretConfig.coinsetter_customer_uuid,
+    orderType: "MARKET",
+    requestedQuantity: amount,
+    requestedPrice: price,
+    side: order_type.upcase,
+    symbol: "BTCUSD",
+    routingMethod: 1
+  }
+end
+
+helpers do
+  # taken from rails escape_javascript
+  def j(javascript)
+    if javascript
+      js_escape_map = {
+        '\\'    => '\\\\',
+        '</'    => '<\/',
+        "\r\n"  => '\n',
+        "\n"    => '\n',
+        "\r"    => '\n',
+        '"'     => '\\"',
+        "'"     => "\\'"
+      }
+
+      js_escape_map["\342\200\250".force_encoding(Encoding::UTF_8).encode!] = '&#x2028;'
+      js_escape_map["\342\200\251".force_encoding(Encoding::UTF_8).encode!] = '&#x2029;'
+      
+      return javascript.gsub(/(\\|<\/|\r\n|\342\200\250|\342\200\251|[\n\r"'])/u) {|match| js_escape_map[match] }
+    else
+      return ''
+    end
   end
 end
