@@ -71,9 +71,7 @@ function buy(amount)  {
 }
 
 function sell(amount)  {
-    var btcAmount = amount/parseFloat($('#price-value').text()),
-        actualSell = Math.floor(100*btcAmount/1.0025)/100;
-    
+    var actualSell = Math.floor(100*amount/1.0025)/100;
     url = '/sell/' + actualSell + '/for/' + $('#price-value').text();
     
     $.ajax({ url: url, dataType: 'SCRIPT', type: 'GET' });

@@ -14,7 +14,7 @@ before do
   @logged_in ||= login_to_coinsetter
   
   @customer_uuid = SecretConfig.coinsetter_customer_uuid
-  @msg ||= @logged_in ? { status: 'info', content: "Logged In" } : { status: 'info', content: "" }
+  @msg ||= @logged_in ? { status: 'success', content: "Logged In" } : { status: 'info', content: "" }
 end
 
 get '/' do
@@ -41,9 +41,9 @@ get '/buy/:amount/for/:price' do
   response = coinsetter_request(:post, '/order', parameters, header)
   
   if response['requestStatus'] == 'SUCCESS'
-    @message = "Bought #{params[:amount]} for #{params[:price]}."
+    @message = { status: 'success', msg: "Bought #{params[:amount]} for #{params[:price]}." }
   else
-    @message = "Something went wrong."
+    @message = { status: 'warning', msg: "Something went wrong." }
   end
   
   erb :'order_result.js', :layout => false
@@ -56,9 +56,9 @@ get '/sell/:amount/for/:price' do
   response = coinsetter_request(:post, '/order', parameters, header)
   
   if response['requestStatus'] == 'SUCCESS'
-    @message = "Sold #{params[:amount]} for #{params[:price]}."
+    @message = { status: 'success', msg: "Sold #{params[:amount]} for #{params[:price]}." }
   else
-    @message = "Something went wrong."
+    @message = { status: 'warning', msg: response['message'] }
   end
   
   erb :'order_result.js', :layout => false
@@ -93,7 +93,7 @@ def coinsetter_request(method, path, parameters = {}, headers = {})
     headers: {content_type: :json, accept: :json}.merge(headers)
   }
   
-  # api_hash[:verify_ssl] = false # for localhost testing
+  api_hash[:verify_ssl] = false # for localhost testing
   
   RestClient::Request.execute(api_hash) do |response, request, result, &block|
     return JSON.parse(response)

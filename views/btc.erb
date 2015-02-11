@@ -1,7 +1,7 @@
 <% button_class = @btc_balance > 0.01 ? 'btn btn-xs btn-danger' : 'btn btn-xs btn-danger disabled' %>
 
 <p>
-    <button id='sell-btc' class='<%= button_class %>' onclick='sell(<%= @usd_balance %>)'>
+    <button id='sell-btc' class='<%= button_class %>' onclick='sell(<%= @btc_balance %>)'>
         Sell All
     </button>
     

@@ -1,2 +1,4 @@
-$('#app-status').append("<span id='order-status' class='alert alert-success'><%= @message %></span>");
+$('#app-status').append(
+    "<span id='order-status' class='alert alert-<%= @message[:status] %>'><%= @message[:msg] %></span>"
+);
 $('#order-status').fadeOut(5000, function() { $(this).remove(); });
