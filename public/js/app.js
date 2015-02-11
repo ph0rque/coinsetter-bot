@@ -25,8 +25,8 @@ function fetch_data(customer_uuid) {
                 btc += data.filledQuantity;
                 usd -= data.filledQuantity*price*1.0025;
             } else {
-                btc -= data.filledQuantity*1.0025;
-                usd += data.filledQuantity*price;
+                btc -= data.filledQuantity;
+                usd += data.filledQuantity*price/1.0025;
             }
             
             $('#btc-amount').text(Math.round(100*btc)/100);
