@@ -1,37 +1,37 @@
 class SecretConfig
-  
+
   def self.username
-    return 'ph0rque'
+    'your-username-here'
   end
-  
+
   def self.password
-    return '^4RHj2I3$NHqc5Uy4rZPftuyJQrMQ4mI@ma&fzm'
+    'your-password-here'
   end
-  
+
   def self.quotaguard_static_url
     'http://quotaguard2197:8016aaab1f58@us-east-1-static-brooks.quotaguard.com:9293'
   end
-  
+
   def self.coinsetter_url
     'https://api.coinsetter.com/v1'
   end
-  
+
   def self.coinsetter_username
-    'ph00rque'
+    'coinsetter-username-here'
   end
-  
+
   def self.coinsetter_password
-    '4d42raw$MXgSvk83VABnG^x*'
+    'coinsetter-password-here'
   end
-  
+
   def self.coinsetter_customer_uuid
-    '8d1e8d3f-a45e-421d-9d71-7c93277c797d'
+    '1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d'
   end
-  
+
   def self.coinsetter_account_uuid
-    'dcc8bfcc-d82d-4b71-929a-763765e07ed5'
+    '5e6f7a8b-9c0d-1e2f-3a4b-5c6d5e6f7a8b'
   end
-  
+
   def self.coinsetter_login_params(ip_address)
     {
       username: self.coinsetter_username,
@@ -39,5 +39,5 @@ class SecretConfig
       ipAddress: ip_address
     }
   end
-  
+
 end
